@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="CadastroSimulacao.statusCodeCadastroFalhaRegra" project="desafio-api" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testcase name="statusCodeCadastroFalhaRegra" classname="br.com.api.CadastroSimulacao" time="3.989"/>
+</testrun>

@@ -1,0 +1,33 @@
+package br.com.api;
+
+import static org.junit.Assert.assertEquals;
+import org.junit.Assert;
+import org.junit.Test;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+
+public class ConsultaSimulacao {
+	
+	@Test
+	public void consultaSimulacoes() {
+
+		Response response = RestAssured.get("http://localhost:8080/api/v1/simulacoes");
+		System.out.println(response.asPrettyString());
+		System.out.println(response.getStatusCode());
+		int code = response.getStatusCode();
+		assertEquals(200, code);
+	}
+	
+	public void consultaSimulacoesCPF() {
+
+		Response response = RestAssured.get("http://localhost:8080/api/v1/simulacoes/66414919004");
+		System.out.println(response.asPrettyString());
+		System.out.println(response.getStatusCode());
+		int code = response.getStatusCode();
+		String responseBodyAsString = response.getBody().asString();
+		assertEquals(200, code);
+	}
+
+
+
+}

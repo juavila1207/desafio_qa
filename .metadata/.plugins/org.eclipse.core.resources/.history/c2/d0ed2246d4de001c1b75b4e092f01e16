@@ -1,0 +1,64 @@
+package br.com.api;
+
+import static org.junit.Assert.assertEquals;
+
+import org.json.JSONObject;
+import org.junit.Assert;
+import org.junit.Test;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+
+public class ConsultaCPF {
+
+	@Test
+	public void consultaRestricao() {
+
+		Response response = RestAssured.get("http://localhost:8080/api/v1/restricoes/97093236014");
+		System.out.println(response.asPrettyString());
+		System.out.println(response.getStatusCode());
+		int code = response.getStatusCode();
+		String responseBodyAsString = response.getBody().asString();
+		assertEquals(200, code);
+		Assert.assertTrue(responseBodyAsString.contains("tem problema"));
+	}
+	@Test
+	public void cadastroSimulacao() {
+		Response response = request.post("http://localhost:8080/api/v1/simulacoes");
+		request.header("Content-Type", "application/json");
+	    JSONObject json = new JSONObject();
+	    json.put("nome", "Pedro Franco");
+	    json.put("cpf", "664149190045");
+	    json.put("email", "pedro@gmail.com");
+	    json.put("valor", 11000.00);
+	    json.put("parcelas", 5);
+	    json.put("parcelas", false);
+	    request.body(json.toString());
+
+
+	    
+
+		System.out.println(response.asPrettyString());
+
+
+		
+	}
+
+	public void statusCodeCadastro() {
+		
+		RequestSpecification request = RestAssured.given().auth().preemptive().oauth2("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyYWZhZWwiLCJleHAiOjE2ODQ1NTE2MDJ9.jhS8BZuD6RP_kkili3DzDg1O3N7HAhbzy3ixNlSMHrc");
+		request.header("Content-Type", "application/json");
+	    JSONObject json = new JSONObject();
+	    json.put("name", "Rafael Moreira");
+	    json.put("phone_number", "+5511958768865");
+	    json.put("email", "rmosantos@gmail.com");
+	    json.put("password", "W@lmart10");
+		
+		request.body(json.toString());
+		Response response = request.post("https://api.dev.bravve.app/users");
+		assertEquals(201, response.getStatusCode());
+		System.out.println("Dados Corretos");
+		System.out.println("response" + response.asString());
+		
+		
+	}
+}

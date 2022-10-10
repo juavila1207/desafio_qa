@@ -1,0 +1,35 @@
+package br.com.api;
+
+import static org.junit.Assert.assertEquals;
+
+import org.json.JSONObject;
+import org.junit.Test;
+
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+
+public class AlterarSimulacao {
+	
+	@Test
+	public void statusCodeCadastroSucesso() {
+
+		RequestSpecification request = RestAssured.given();
+		request.header("Content-Type", "application/json");
+		JSONObject json = new JSONObject();
+		json.put("nome", "Pedro Ribeiro");
+		json.put("cpf", "12990367790");
+		json.put("email", "pedro1@gmail.com");
+		json.put("valor", 2000);
+		json.put("parcelas", 3);
+		json.put("seguro", true);
+
+		request.body(json.toString());
+		Response response = request.put("http://localhost:8080/api/v1/simulacoes/12990367790");
+		assertEquals(200, response.getStatusCode());
+		System.out.println("response" + response.asString());
+		System.out.println(response.getStatusCode());
+
+	}
+
+}

@@ -1,0 +1,78 @@
+package br.com.api;
+
+import static org.junit.Assert.assertEquals;
+
+import org.json.JSONObject;
+import org.junit.Assert;
+import org.junit.Test;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+
+public class CadastroSimulacao {
+
+	@Test
+	public void statusCodeCadastroSucesso() {
+
+		RequestSpecification request = RestAssured.given();
+		request.header("Content-Type", "application/json");
+		JSONObject json = new JSONObject();
+		json.put("nome", "Juliana Avila");
+		json.put("cpf", "35882905087");
+		json.put("email", "juliana@gmail.com");
+		json.put("valor", 3000);
+		json.put("parcelas", 3);
+		json.put("seguro", true);
+
+		request.body(json.toString());
+		Response response = request.post("http://localhost:8080/api/v1/simulacoes");
+		assertEquals(201, response.getStatusCode());
+		System.out.println("response" + response.asString());
+		System.out.println("codigo de retorno é : " + response.getStatusCode());
+
+	}
+
+	@Test
+	public void statusCodeCadastroFalhaRegra() {
+
+		RequestSpecification request = RestAssured.given();
+		request.header("Content-Type", "application/json");
+		JSONObject json = new JSONObject();
+		json.put("nome", "Juliana Avila");
+		json.put("email", "juliana@gmail.com");
+		json.put("valor", 3000);
+		json.put("parcelas", 3);
+		json.put("seguro", true);
+
+		request.body(json.toString());
+		Response response = request.post("http://localhost:8080/api/v1/simulacoes");
+		assertEquals(400, response.getStatusCode());
+		System.out.println("response" + response.asString());
+		System.out.println("codigo de retorno é : " + response.getStatusCode());
+
+	}
+
+	@Test
+	public void statusCodeCadastroDuplicado() {
+
+		RequestSpecification request = RestAssured.given();
+		request.header("Content-Type", "application/json");
+		JSONObject json = new JSONObject();
+		json.put("nome", "Juliana Avila");
+		json.put("cpf", "48109426000");
+		json.put("email", "juliana@gmail.com");
+		json.put("valor", 3000);
+		json.put("parcelas", 3);
+		json.put("seguro", true);
+
+		request.body(json.toString());
+		Response response = request.post("http://localhost:8080/api/v1/simulacoes");
+		String responseBodyAsString = response.getBody().asString();
+		assertEquals(400, response.getStatusCode());
+		Assert.assertTrue(responseBodyAsString.contains("CPF duplicado"));
+		System.out.println("response" + response.asString());
+		System.out.println( "codigo de retorno é : " + response.getStatusCode());
+
+	}
+
+}

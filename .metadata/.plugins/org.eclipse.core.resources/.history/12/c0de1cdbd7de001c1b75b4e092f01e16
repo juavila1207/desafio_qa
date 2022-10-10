@@ -1,0 +1,50 @@
+package br.com.api;
+
+import static org.junit.Assert.assertEquals;
+
+import org.json.JSONObject;
+import org.junit.Assert;
+import org.junit.Test;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+
+public class ConsultaCPF {
+
+	@Test
+	public void consultaRestricao() {
+
+		Response response = RestAssured.get("http://localhost:8080/api/v1/restricoes/97093236014");
+		System.out.println(response.asPrettyString());
+		System.out.println(response.getStatusCode());
+		int code = response.getStatusCode();
+		String responseBodyAsString = response.getBody().asString();
+		assertEquals(200, code);
+		Assert.assertTrue(responseBodyAsString.contains("tem problema"));
+	}
+
+	public void statusCodeCadastro() {
+		
+		RequestSpecification request = RestAssured.given().auth().preemptive().oauth2("");
+		request.header("Content-Type", "application/json");
+	    JSONObject json = new JSONObject();
+	    json.put("name", "Pedro Franco");
+	    json.put("cpf", 1234567890);
+	    json.put("email", "pedro@gmail.com");
+	    json.put("valor", 1000 );
+	    json.put("parcelas", 3 );
+	    json.put("seguro", true );
+
+
+		request.body(json.toString());
+		Response response = request.post("http://localhost:8080/api/v1/simulacoes");
+		assertEquals(201, response.getStatusCode());
+		System.out.println("Dados Corretos");
+		System.out.println("response" + response.asString());
+		
+		
+	}
+		
+		
+	
+}

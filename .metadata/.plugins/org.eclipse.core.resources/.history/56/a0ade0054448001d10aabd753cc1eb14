@@ -1,0 +1,36 @@
+package br.com.api;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+
+public class DeletaSimulacao {
+	
+	@Test
+	public void deletaSimulacao() {
+
+		Response response = RestAssured.delete("http://localhost:8080/api/v1/simulacoes/12");
+		System.out.println(response.asPrettyString());
+		System.out.println(response.getStatusCode());
+		int code = response.getStatusCode();
+		assertEquals(204, code);
+	}
+	
+	@Test
+	public void deletaSimulacaoFalha() {
+
+		Response response = RestAssured.delete("http://localhost:8080/api/v1/simulacoes/0");
+		System.out.println(response.asPrettyString());
+		System.out.println(response.getStatusCode());
+		int code = response.getStatusCode();
+		String responseBodyAsString = response.getBody().asString();
+		assertEquals(404, code);
+		Assert.assertTrue(responseBodyAsString.contains("Simulação não encontrada"));
+
+	}
+
+}

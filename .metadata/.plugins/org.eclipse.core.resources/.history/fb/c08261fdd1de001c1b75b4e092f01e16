@@ -1,0 +1,26 @@
+package br.com.api;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
+
+public class ConsultaCPF {
+
+	@Test
+	public void consultaRestricao() {
+
+		Response response = RestAssured.get("http://localhost:8080/api/v1/restricoes/97093236014");
+		System.out.println(response.asPrettyString());
+		System.out.println(response.getStatusCode());
+		int code = response.getStatusCode();
+		assertEquals(200, code);
+
+
+		
+
+	}
+
+}

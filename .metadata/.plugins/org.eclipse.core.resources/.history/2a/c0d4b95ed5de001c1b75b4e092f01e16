@@ -1,0 +1,28 @@
+package br.com.api;
+
+import static org.junit.Assert.assertEquals;
+
+import org.json.JSONObject;
+import org.junit.Assert;
+import org.junit.Test;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+
+public class ConsultaCPF {
+
+	@Test
+	public void consultaRestricao() {
+
+		Response response = RestAssured.get("http://localhost:8080/api/v1/restricoes/97093236014");
+		System.out.println(response.asPrettyString());
+		System.out.println(response.getStatusCode());
+		int code = response.getStatusCode();
+		String responseBodyAsString = response.getBody().asString();
+		assertEquals(200, code);
+		Assert.assertTrue(responseBodyAsString.contains("tem problema"));
+	}
+
+		
+		
+	
+}

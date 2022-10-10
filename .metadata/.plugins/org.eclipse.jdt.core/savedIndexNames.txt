@@ -1,0 +1,23 @@
+INDEX VERSION 1.131+C:\Users\Juliana\desafio_automacao\.metadata\.plugins\org.eclipse.jdt.core
+3007761201.index
+1422491446.index
+1953172172.index
+1973626781.index
+2035466506.index
+2632652150.index
+3449384225.index
+1189958086.index
+2910615335.index
+3273866195.index
+874113131.index
+2916496384.index
+3226506417.index
+1865797976.index
+1835036065.index
+2826888107.index
+296339010.index
+3280171523.index
+179091552.index
+9052301.index
+1634244986.index
+2386588474.index
